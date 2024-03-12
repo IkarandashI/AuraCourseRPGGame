@@ -23,4 +23,7 @@ public:
 protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void WidgetControllerSet();
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bGlobeInitialize = false;
 };
