@@ -4,6 +4,7 @@
 #include "Character/AuraBaseCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "EditorDirectories.h"
 #include "GameplayEffectTypes.h"
 
 AAuraBaseCharacter::AAuraBaseCharacter()
