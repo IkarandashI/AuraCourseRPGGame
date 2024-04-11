@@ -10,6 +10,7 @@
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "Aura/Aura.h"
 #include "Components/CapsuleComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 AAuraBaseCharacter::AAuraBaseCharacter()
 {
@@ -45,6 +46,8 @@ void AAuraBaseCharacter::Die()
 
 void AAuraBaseCharacter::MultiCastHandleDeath_Implementation()
 {
+	UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
+	
 	Weapon->SetSimulatePhysics(true);
 	Weapon->SetEnableGravity(true);
 	Weapon->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
