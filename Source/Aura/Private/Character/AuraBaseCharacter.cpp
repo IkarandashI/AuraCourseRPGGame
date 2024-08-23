@@ -159,6 +159,7 @@ void AAuraBaseCharacter::AddCharacterAbilities()
     if (!HasAuthority()) return;
 
     AuraASC->AddCharacterAbilities(StartupAbilities);
+    AuraASC->AddCharacterPassiveAbilities(StartupPassiveAbilities);
 }
 
 void AAuraBaseCharacter::Dissolve()
