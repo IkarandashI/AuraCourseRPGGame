@@ -10,17 +10,17 @@ class UBlackboardComponent;
 class UBehaviorTreeComponent;
 
 /**
- * 
+ *
  */
 UCLASS()
 class AURA_API AAuraAIController : public AAIController
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	AAuraAIController();
-protected:
+    AAuraAIController();
 
-	UPROPERTY()
-	TObjectPtr<UBehaviorTreeComponent> BehaviorTreeComponent;
+protected:
+    UPROPERTY()
+    TObjectPtr<UBehaviorTreeComponent> BehaviorTreeComponent;
 };

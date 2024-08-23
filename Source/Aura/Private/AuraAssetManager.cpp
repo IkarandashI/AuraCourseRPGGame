@@ -1,24 +1,23 @@
 // Copyright
 
-
 #include "AuraAssetManager.h"
 #include "AbilitySystemGlobals.h"
 #include "AuraGameplayTags.h"
 
 UAuraAssetManager& UAuraAssetManager::Get()
 {
-	check(GEngine);
+    check(GEngine);
 
-	UAuraAssetManager* AuraAssetManager = Cast<UAuraAssetManager>(GEngine->AssetManager);
-	return *AuraAssetManager;
+    UAuraAssetManager* AuraAssetManager = Cast<UAuraAssetManager>(GEngine->AssetManager);
+    return *AuraAssetManager;
 }
 
 void UAuraAssetManager::StartInitialLoading()
 {
-	Super::StartInitialLoading();
+    Super::StartInitialLoading();
 
-	FAuraGameplayTags::InitializeNativeGameplayTags();
+    FAuraGameplayTags::InitializeNativeGameplayTags();
 
-	// This is required to use Target Data!
-	UAbilitySystemGlobals::Get().InitGlobalData();
+    // This is required to use Target Data!
+    UAbilitySystemGlobals::Get().InitGlobalData();
 }

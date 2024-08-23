@@ -10,26 +10,25 @@
 USTRUCT(BlueprintType)
 struct FAuraInputAction
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly)
-	const class UInputAction* InputAction = nullptr;
+    UPROPERTY(EditDefaultsOnly)
+    const class UInputAction* InputAction = nullptr;
 
-	UPROPERTY(EditDefaultsOnly)
-	FGameplayTag InputTag = FGameplayTag();
+    UPROPERTY(EditDefaultsOnly)
+    FGameplayTag InputTag = FGameplayTag();
 };
 
 /**
- * 
+ *
  */
 UCLASS()
 class AURA_API UAuraInputConfig : public UDataAsset
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 public:
+    const UInputAction* FindAbilityInputActionForTag(const FGameplayTag& InputTag, bool bLogNotFound = false) const;
 
-	const UInputAction* FindAbilityInputActionForTag(const FGameplayTag& InputTag, bool bLogNotFound = false) const;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TArray<FAuraInputAction> AbilityInputActions;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    TArray<FAuraInputAction> AbilityInputActions;
 };
