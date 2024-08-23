@@ -3,7 +3,7 @@
 #include "AbilitySystem/Data/LevelUpInfo.h"
 
 // TODO : Make more normal function
-int32 ULevelUpInfo::FindLevelForXP(int32 XP)
+int32 ULevelUpInfo::FindLevelForXP(int32 XP) const
 {
     int32 Level = 1;
     bool bSearching = true;
@@ -19,8 +19,13 @@ int32 ULevelUpInfo::FindLevelForXP(int32 XP)
         {
             bSearching = false;
         }
-        
-       //XP >= LevelUpInformation[Level].LevelUpRequirement ? ++Level :  bSearching = false;
     }
+
+    /*for (auto& LevelUpInfo : LevelUpInformation)
+        {
+            if (LevelUpInformation.Num() - 1 <= Level) return Level;
+            XP >= LevelUpInformation[Level].LevelUpRequirement ? ++Level :  Level;
+        }*/
+
     return Level;
 }
