@@ -133,37 +133,29 @@ void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 
 void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
-    if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_RMB))
-    {
-        if (GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
-        return;
-    }
-
     if (GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
+    if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_RMB)) return;
 
-    if (!bTargeting && !bShiftKeyDown)
+    if (bTargeting && bShiftKeyDown) return;
+    if (FollowTime >= ShortPressThreshold && !GetPawn()) return;
+
+    if (UNavigationPath* NavPath =
+            UNavigationSystemV1::FindPathToLocationSynchronously(this, GetPawn()->GetActorLocation(), CachedDestination))
     {
-        const APawn* ControlledPawn = GetPawn();
-        if (FollowTime <= ShortPressThreshold && ControlledPawn)
+        Spline->ClearSplinePoints();
+        for (const FVector& PointLoc : NavPath->PathPoints)
         {
-            if (UNavigationPath* NavPath =
-                    UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
-            {
-                Spline->ClearSplinePoints();
-                for (const FVector& PointLoc : NavPath->PathPoints)
-                {
-                    Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
-                }
-                if (NavPath->PathPoints.Num() > 0)
-                {
-                    CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
-                    bAutoRunning = true;
-                }
-            }
+            Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
         }
-        FollowTime = 0.f;
-        bTargeting = false;
+        if (NavPath->PathPoints.Num() > 0)
+        {
+            CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
+            bAutoRunning = true;
+        }
     }
+
+    FollowTime = 0.f;
+    bTargeting = false;
 }
 
 void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
